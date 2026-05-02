@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Results - AI Image Detector</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+       
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 12px 20px;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 6px 12px;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .logout-btn:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+       
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+       
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .metric-card {
+            color: #fff;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .metric-card h4 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .metric-card h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .bg-accuracy { background-color: #28a745; }
+        .bg-loss { background-color: #dc3545; }
+        .bg-precision { background-color: #007bff; }
+        .bg-recall { background-color: #6f42c1; }
+
+      
+        .card {
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            background-color: #fafafa;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .graph-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .graph-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .action {
+            text-align: center;
+            margin: 40px 0 60px;
+        }
+
+        .action a {
+            display: inline-block;
+            padding: 14px 26px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .action a:hover {
+            background-color: #1e7e34;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="{{ url_for('dashboard') }}" class="brand">AI Image Detector</a>
+                <div class="nav-links">
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('train') }}">Train Model</a>
+                    <a href="{{ url_for('predict') }}">Test Image</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <span>Welcome, {{ session['full_name'] }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+  
+    <div class="container">
+        <h2>Training Performance Metrics</h2>
+
+    
+        <div class="metrics-grid">
+            <div class="metric-card bg-accuracy">
+                <h4>Accuracy</h4>
+                <h2>{{ (metrics['accuracy'] * 100) | round(2) }}%</h2>
+            </div>
+
+            <div class="metric-card bg-loss">
+                <h4>Loss</h4>
+                <h2>{{ metrics['loss'] }}</h2>
+            </div>
+
+            <div class="metric-card bg-precision">
+                <h4>Precision</h4>
+                <h2>{{ (metrics['precision'] * 100) | round(2) }}%</h2>
+            </div>
+
+            <div class="metric-card bg-recall">
+                <h4>Recall</h4>
+                <h2>{{ (metrics['recall'] * 100) | round(2) }}%</h2>
+            </div>
+        </div>
+
+     
+        <div class="graph-grid">
+            <div class="card">
+                <div class="card-header">Training vs Validation Accuracy</div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='graphs/accuracy_plot.png') }}" alt="Accuracy Plot">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Training vs Validation Loss</div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='graphs/loss_plot.png') }}" alt="Loss Plot">
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:700px; margin:0 auto;">
+            <div class="card-header">Confusion Matrix</div>
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='graphs/confusion_matrix.png') }}" alt="Confusion Matrix">
+            </div>
+        </div>
+
+   
+        <div class="action">
+            <a href="{{ url_for('predict') }}">Proceed to Test Image</a>
+        </div>
+    </div>
+
+</body>
+</html>

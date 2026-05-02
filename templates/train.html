@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Model - AI Image Detector</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+       
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 12px 20px;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 6px 12px;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .logout-btn:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card-header {
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+            background-color: #fafafa;
+        }
+
+        .card-body {
+            padding: 30px 25px;
+        }
+
+        .card-body p {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 14px 36px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .note {
+            margin-top: 25px;
+            color: #777;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="{{ url_for('dashboard') }}" class="brand">AI Image Detector</a>
+                <div class="nav-links">
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('train') }}" class="active">Train Model</a>
+                    <a href="{{ url_for('predict') }}">Test Image</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <span>Welcome, {{ session['full_name'] }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Model Training Module</h3>
+            </div>
+
+            <div class="card-body">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <p>
+                    Click the button below to start training the CNN model
+                    using the provided dataset.
+                </p>
+
+                <form method="POST">
+                    <button type="submit">Start Training</button>
+                </form>
+
+                <div class="note">
+                    Note: Training may take several minutes depending on your hardware.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

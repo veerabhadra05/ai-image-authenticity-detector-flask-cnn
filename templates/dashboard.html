@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Image Detector</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 12px 20px;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 6px 12px;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .logout-btn:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 15px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h2 {
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card h5 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="#" class="brand">AI Image Detector</a>
+                <div class="nav-links">
+                    <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
+                    <a href="{{ url_for('train') }}">Train Model</a>
+                    <a href="{{ url_for('predict') }}">Test Image</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <span>Welcome, {{ session['full_name'] }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h2>AI-Synthesized Image Detection System</h2>
+            <p>Detect whether an image is Real (Human Captured) or Fake (AI Generated).</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h5>1. Train the Model</h5>
+                <p>
+                    Process the dataset and train the CNN classifier to distinguish
+                    between Real and Fake images.
+                </p>
+                <a href="{{ url_for('train') }}">Go to Training</a>
+            </div>
+
+            <div class="card">
+                <h5>2. View Performance</h5>
+                <p>
+                    Check the accuracy, loss, and confusion matrix after training
+                    is completed.
+                </p>
+                <a href="{{ url_for('results') }}">View Results</a>
+            </div>
+
+            <div class="card">
+                <h5>3. Test New Images</h5>
+                <p>
+                    Upload a single image and let the system predict its
+                    authenticity with confidence scores.
+                </p>
+                <a href="{{ url_for('predict') }}">Test Now</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# ----------------------
+# Flask
+# ----------------------
+instance/
+*.db
+*.sqlite3
+
+# ----------------------
+# Environment Variables (VERY IMPORTANT)
+# ----------------------
+.env
+
+# ----------------------
+# Logs
+# ----------------------
+*.log
+
+# ----------------------
+# VS Code
+# ----------------------
+.vscode/
+
+# ----------------------
+# OS Files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# ML / AI Files
+# ----------------------
+
+# Large model files (optional)
+*.h5
+*.keras
+*.pt
+*.pth
+
+# Dataset (VERY IMPORTANT if large)
+Dataset/
+data/
+datasets/
+
+# Uploaded images
+static/uploads/
+
+# Generated graphs
+static/graphs/
+
+# ----------------------
+# Build / cache
+# ----------------------
+build/
+dist/
+
+# ----------------------
+# Temporary files
+# ----------------------
+*.tmp
+*.temp
