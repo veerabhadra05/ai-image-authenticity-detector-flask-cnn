@@ -148,17 +148,17 @@ Open: http://127.0.0.1:5000/
 
 This project was developed as a team project.
 
-* My Role : Team Leader & Full-Stack Developer
-Led project development and coordination
-Developed Flask backend
-Built frontend UI using HTML & CSS
-Integrated CNN model with web application
-Implemented authentication system
-Managed database and routing logic
+### My Role : Team Leader & Full-Stack Developer
+* Led project development and coordination
+* Developed Flask backend
+* Built frontend UI using HTML & CSS
+* Integrated CNN model with web application
+* Implemented authentication system
+* Managed database and routing logic
 
 ### Team Contributions
-Dataset collection and preprocessing
-Model training support and evaluation
+* Dataset collection and preprocessing
+* Model training support and evaluation
 
 ## 👤 Author
 
